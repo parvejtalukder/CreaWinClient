@@ -1,120 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React from "react"
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center px-6">
+      <div className="max-w-xl w-full bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        {/* Profile Image */}
+        <div className="flex justify-center mb-6">
+          <img
+            src="https://parvejhusentalukder.com/wp-content/uploads/2026/01/1760588060514-e1768633405820.jpeg"
+            alt="Profile"
+            className="w-36 h-36 rounded-full border-4 border-indigo-500 object-cover"
+          />
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        {/* Name */}
+        <h1 className="text-3xl font-bold mb-2">
+          Parvej Husen Talukder
+        </h1>
+
+        {/* Title */}
+        <p className="text-indigo-400 font-medium mb-4">
+          MERN Stack Developer & Competitive Programmer
+        </p>
+
+        {/* Description */}
+        <p className="text-gray-300 mb-6">
+          Passionate about building modern web applications using
+          React, Node.js, Express, and MongoDB. I also enjoy solving
+          algorithmic problems and participating in competitive
+          programming contests.
+        </p>
+
+        {/* Skills */}
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold mb-3">Tech Stack</h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            <span className="px-3 py-1 bg-indigo-600 rounded-full text-sm">React</span>
+            <span className="px-3 py-1 bg-indigo-600 rounded-full text-sm">Node.js</span>
+            <span className="px-3 py-1 bg-indigo-600 rounded-full text-sm">Express</span>
+            <span className="px-3 py-1 bg-indigo-600 rounded-full text-sm">MongoDB</span>
+            <span className="px-3 py-1 bg-indigo-600 rounded-full text-sm">C++</span>
+          </div>
+        </div>
+
+        {/* Links */}
+        <div className="flex justify-center gap-6">
+          <a
+            href="https://github.com/parvejtalukder"
+            target="_blank"
+            className="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg transition"
+          >
+            GitHub
+          </a>
+
+          <a
+            href="https://codeforces.com/"
+            target="_blank"
+            className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition"
+          >
+            Codeforces
+          </a>
+        </div>
+
+      </div>
+    </div>
   )
 }
 

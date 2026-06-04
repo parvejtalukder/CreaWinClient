@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+  root: ":root";
+  logs: true;
+}
+
+body {
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 100;
+    /* font-style: normal; */
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+
+  --color-base-100: #F7F8FF; /* soft cinematic background */
+  --color-base-200: #EEF2FF; /* card surfaces */
+  --color-base-300: #E0E7FF; /* elevated sections */
+  --color-base-content: #0F172A; /* deep readable text */
+
+  --color-primary: #6D28D9; /* main creative purple */
+  --color-secondary: #06B6D4; /* neon cyan energy */
+  --color-accent: #F97316; /* orange highlight (CTA / alerts) */
+
+  --color-success: #22C55E;
+  --color-warning: #EAB308;
+  --color-error: #EF4444;
+  --color-info: #3B82F6;
+
+  --color-neutral: #94A3B8;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  prefersdark: true;
+
+  --color-base-100: #070A13; /* deep space background */
+  --color-base-200: #0B1020; /* card surface */
+  --color-base-300: #111827; /* elevated panels */
+  --color-base-content: #E5E7EB; /* soft white text */
+
+  --color-primary: #8B5CF6; /* glowing neon purple */
+  --color-secondary: #22D3EE; /* electric cyan */
+  --color-accent: #F97316; /* energetic orange */
+
+  --color-success: #4ADE80;
+  --color-warning: #FACC15;
+  --color-error: #FB7185;
+  --color-info: #38BDF8;
+
+  --color-neutral: #64748B;
+}

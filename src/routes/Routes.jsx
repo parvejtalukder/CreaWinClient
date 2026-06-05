@@ -6,6 +6,7 @@ import Auth from "../layouts/Auth/Auth";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
 import Dashboard from "../layouts/Dashboard/Dashboard";
+import MyProfile from "../dashboard/MyProfile/MyProfile";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
         {
             index: true,
         },
+        {
+            path: "profile",
+            element: <MyProfile></MyProfile>
+        }
     ]
   },
 ]);

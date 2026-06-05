@@ -68,7 +68,6 @@ const Register = () => {
                             showConfirmButton: false,
                             timer: 2000
                         })
-                        // navigate("/");
                     })
 
                 })

@@ -1,11 +1,41 @@
 import React from 'react';
-import { Link, NavLink, Outlet } from 'react-router';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router';
 import useTheme from '../../hooks/useTheme';
 import { CgProfile } from 'react-icons/cg';
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
+import { FaLessThanEqual } from 'react-icons/fa';
 
 const Dashboard = () => {
 
+    const navigate = useNavigate();
     const { toggleTheme } = useTheme();
+    const { logOut, setLoading } = useAuth();
+
+    const handleLogout = async () => {
+        try {
+          await logOut();
+          Swal.fire({
+            title: "Logged Out!",
+            icon: "success",
+            position: "center",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+          navigate("/");
+          setLoading(false)
+        } catch (error) {
+        // console.error(error);
+        Swal.fire({
+            title: "Logged Out!",
+            icon: "success",
+            position: "top-end",
+            text: error,
+            showConfirmButton: false,
+            timer: 1000,
+        });
+      }
+    };
 
 
     return (
@@ -103,21 +133,18 @@ const Dashboard = () => {
               </ul>
               <ul className='menu w-full '>
                 <li>
-                  <NavLink
-                    className={({ isActive }) =>
+                  <div
+                    onClick={handleLogout}
+                    className={
                       `is-drawer-close:tooltip is-drawer-close:tooltip-right
                        transition-all duration-200
-                       ${
-                         isActive
-                           ? "bg-secondary text-secondary-content font-semibold"
-                           : "hover:bg-base-300"
-                       }`
+                       bg-secondary text-secondary-content font-semibold`
                     }
                     data-tip="Log Out"
                   >
                     <CgProfile />
                     <span className="is-drawer-close:hidden">Log Out</span>
-                  </NavLink>
+                  </div>
                 </li>
               </ul>
             </div>

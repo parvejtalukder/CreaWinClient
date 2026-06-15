@@ -2,12 +2,14 @@ import React from 'react';
 import useAuth from '../../hooks/useAuth';
 import { FaUserCheck } from 'react-icons/fa6';
 import Logo from "../../assets/logo.png";
+import useRole from '../../hooks/useRole';
 
 const MyProfile = () => {
 
+    const { role }= useRole();
     const { user } = useAuth();
-
     console.log(user);
+    console.log(role);
 
     return (
         <div className='flex flex-col gap-3'>

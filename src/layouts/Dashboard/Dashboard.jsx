@@ -5,12 +5,82 @@ import { CgProfile } from 'react-icons/cg';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import { FaLessThanEqual } from 'react-icons/fa';
+// import { CiBoxes } from "react-icons/gi";
+import { CiBoxes } from "react-icons/ci";
+import { PiUsersFourLight } from "react-icons/pi";
+import useUser from '../../hooks/useUser';
+import Loader from '../../utils/Loader/Loader';
+import { FaWpforms } from "react-icons/fa6";
+
+
+
+const adminLinks = <>
+
+              <li>
+                  <NavLink
+                    to="/dashboard/contests"
+                    className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right
+                       transition-all duration-200
+                       ${
+                         isActive
+                           ? "bg-secondary text-secondary-content font-semibold"
+                           : "hover:bg-base-300"
+                       }`
+                    }
+                    data-tip="Manage Contests"
+                  >
+                    <CiBoxes />
+                    <span className="is-drawer-close:hidden">Manage Contests</span>
+                  </NavLink>
+                </li>
+
+              <li>
+                  <NavLink
+                    to="/dashboard/all-submissions"
+                    className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right
+                       transition-all duration-200
+                       ${
+                         isActive
+                           ? "bg-secondary text-secondary-content font-semibold"
+                           : "hover:bg-base-300"
+                       }`
+                    }
+                    data-tip="All Submissions"
+                  >
+                    <FaWpforms />
+                    <span className="is-drawer-close:hidden">All Submissions</span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/dashboard/users"
+                    className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right
+                       transition-all duration-200
+                       ${
+                         isActive
+                           ? "bg-secondary text-secondary-content font-semibold"
+                           : "hover:bg-base-300"
+                       }`
+                    }
+                    data-tip="Manage Users"
+                  >
+                    <PiUsersFourLight />
+                    <span className="is-drawer-close:hidden">Manage Users</span>
+                  </NavLink>
+                </li>
+
+</>
 
 const Dashboard = () => {
 
     const navigate = useNavigate();
     const { toggleTheme } = useTheme();
     const { logOut, setLoading } = useAuth();
+    const { userData, userDataLoading } = useUser();
 
     const handleLogout = async () => {
         try {
@@ -36,6 +106,10 @@ const Dashboard = () => {
         });
       }
     };
+
+    if (userDataLoading) {
+      return <Loader></Loader>
+    }
 
 
     return (
@@ -111,6 +185,10 @@ const Dashboard = () => {
                     <span className="is-drawer-close:hidden"> Homepage</span>
                   </NavLink>
                 </li>
+
+                {
+                  userData.role === 'admin' && adminLinks
+                }
                   
                 <li>
                   <NavLink
@@ -130,6 +208,7 @@ const Dashboard = () => {
                     <span className="is-drawer-close:hidden">My Profile</span>
                   </NavLink>
                 </li>
+
               </ul>
               <ul className='menu w-full '>
                 <li>

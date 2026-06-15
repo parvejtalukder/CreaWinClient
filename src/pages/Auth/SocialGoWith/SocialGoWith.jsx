@@ -10,46 +10,30 @@ const SocialGoWith = () => {
     const axiosSecure = useAxios();
     const navigate = useNavigate();
 
-    const handleGoWithGoogle = () => {
-        // e.preventDefault();
-        goWithGoogle()
-        .then(res => {
-            Swal.fire({
-                title: "Logged In!",
-                position: "center",
-                icon: "success",
-                // text: `${res}`,
-                showConfirmButton: false,
-                timer: 2000,
-            })
-
-            navigate("/");
-
+    const handleGoWithGoogle = async () => {
+        try {
+            const res = await goWithGoogle();
             const userObject = {
                 uid: res.user.uid,
-                displayName: res.user.name,
-                photoURL: res.user.photoURL,
+                name: res.user.displayName,
                 email: res.user.email,
+                photo: res.user.photoURL,
             }
-
-            axiosSecure.post("/add-user", userObject)
-            .then(res_db => {
-                console.log(res_db);
-            }) 
-            .catch(err_db => {
-                console.log(err_db);
-            })
-        })
-        .catch(err => {
+            await axiosSecure.post("/add-user", userObject);
             Swal.fire({
                 title: "Logged In!",
-                position: "center",
                 icon: "success",
-                text: `${err}`,
                 showConfirmButton: false,
                 timer: 2000,
-            })
-        })
+            });
+            navigate("/");
+        } catch (error) {
+            Swal.fire({
+                title: "Login Failed!",
+                icon: "error",
+                text: error.message,
+            });
+        }
     }
 
     return (

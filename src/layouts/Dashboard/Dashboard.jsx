@@ -101,6 +101,25 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
               </ul>
+              <ul className='menu w-full '>
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right
+                       transition-all duration-200
+                       ${
+                         isActive
+                           ? "bg-secondary text-secondary-content font-semibold"
+                           : "hover:bg-base-300"
+                       }`
+                    }
+                    data-tip="Log Out"
+                  >
+                    <CgProfile />
+                    <span className="is-drawer-close:hidden">Log Out</span>
+                  </NavLink>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

@@ -40,9 +40,10 @@ const Register = () => {
 
                     const userObject = {
                         uid: res.user.uid,
-                        displayName: data.name,
-                        photoURL: image_res.data.data.display_url,
+                        name: data.name,
+                        photo: image_res.data.data.display_url,
                         email: data.email || res.user.email,
+                        
                     }
 
                     axiosPost.post("/add-user", userObject)
@@ -99,12 +100,12 @@ const Register = () => {
         <div className='p-10 border border-secondary w-full rounded-2xl hover:hover:shadow-2xl transition-all duration-500 items-center font-serif text-secondary'>
             <h2 className='font-bold text-2xl animate-pulse text-center underline-offset-7 underline'>Register</h2>
             <form onSubmit={handleSubmit(handleRegister)}>
-                <fieldset className="fieldset rounded-box w-full p-4">
+                <fieldset className="fieldset rounded-box w-full py-2">
 
                     <label className="label text-md">Name</label>
                     <input 
                     {...register("name", { required: true })}
-                    type="text" className="input focus:outline-none focus:ring-0 focus:border-secondary" placeholder="Name" />  
+                    type="text" className="input w-full focus:outline-none focus:ring-0 focus:border-secondary" placeholder="Name" />  
                     {
                         errors.name?.type === "required" && 
                         <p className="text-error text-sm mt-1">Name is required!!</p>
@@ -113,7 +114,7 @@ const Register = () => {
                     <label className="label text-md">Photo</label>
                     <input 
                     { ...register("photo", { required: true }) }
-                    type="file" className="input file-input focus:outline-none focus:ring-0 focus:border-secondary" placeholder="Photo" />
+                    type="file" className="input w-full file-input focus:outline-none focus:ring-0 focus:border-secondary" placeholder="Photo" />
                     {
                         errors.photo?.type === "required" &&
                         <p className="text-error text-sm mt-1">Photo is required!!</p>
@@ -122,7 +123,7 @@ const Register = () => {
                     <label className="label text-md">Email</label>
                     <input  
                     { ...register("email", { required: true } ) }
-                    type="email" className="input focus:outline-none focus:ring-0 focus:border-secondary" placeholder="Email" />
+                    type="email" className="input w-full focus:outline-none focus:ring-0 focus:border-secondary" placeholder="Email" />
                     {
                         errors.email?.type === "required" &&
                         <p className="text-error text-sm mt-1">Email is required!!</p>
@@ -135,19 +136,19 @@ const Register = () => {
                         minLength: 6,
                         pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/ 
                     } ) }
-                    type="password" className="input" placeholder="Password" />
+                    type="password" className="input w-full" placeholder="Password" />
                     {errors.password?.type === "required" && (
                         <p className="text-error text-sm mt-1">Password is required!!</p>
                     )}
 
-                    <button className="btn btn-secondary mt-4">{ loading ? "Loading" : "Register" }</button>
+                    <button className="btn btn-secondary w-full mt-4">{ loading ? "Loading" : "Register" }</button>
                 </fieldset>
                 <div className='flex -mt-3 flex-col items-center w-full px-4'>
-                    <p className='text-center'>Or</p>
-                    <SocialGoWith></SocialGoWith>    
+                    <p className='text-center pt-1'>Or</p>   
                 </div>
-                <p className='text-center'>Already have an account? <Link to={"/login"} className='text-blue-500'>Login</Link></p>
             </form>
+            <SocialGoWith></SocialGoWith> 
+            <p className='text-center'>Already have an account? <Link to={"/login"} className='text-blue-500'>Login</Link></p>
         </div>
     );
 };

@@ -67,7 +67,7 @@ const Header = () => {
             <section className='flex justify-between items-center gap-2'>
                 <label className="swap swap-rotate">
                   {/* this hidden checkbox controls the state */}
-                  <input onClick={() => toggleTheme()} type="checkbox" className="theme-controller" value="synthwave" /> 
+                  <input onClick={() => toggleTheme()} type="checkbox" className="theme-controller" value="synthwave" />
                   {/* sun icon */}
                   <svg
                     className="swap-off h-10 w-6 fill-current"

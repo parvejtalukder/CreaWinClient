@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router';
 import Header from '../../template/Header/Header';
 import Footer from '../../template/Footer/Footer';
+import MobileMenu from '../../components/MobileMenu/MobileMenu';
 
 const Public = () => {
     return (
@@ -14,6 +15,7 @@ const Public = () => {
             <main className="flex-1">
                 <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6">
                     <Outlet />
+                    <MobileMenu></MobileMenu>
                 </div>
             </main>
             <footer className="border-t border-base-300 bg-base-200">

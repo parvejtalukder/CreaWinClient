@@ -1,20 +1,47 @@
 import React from 'react';
 import useTheme from '../../hooks/useTheme';
 import Logo from '../../utils/Logo/Logo';
-import { IoLogIn } from "react-icons/io5";
-import { Link, NavLink } from 'react-router';
+import { IoLogIn, IoLogOutOutline } from "react-icons/io5";
+import { Link, NavLink, useNavigate } from 'react-router';
 import useAuth from '../../hooks/useAuth';
-import { FaSquare } from 'react-icons/fa';
+import { FaCircle, FaSquare } from 'react-icons/fa';
+import { MdDashboard } from "react-icons/md";
+import Swal from 'sweetalert2';
 
 const Header = () => {
 
-    const { user, loading } = useAuth();
+    const navigate = useNavigate();
+    const { user, loading, logOut, setLoading } = useAuth();
     const { toggleTheme } = useTheme();
     const navItems = [
         { name: "Home", path: "/" },
         { name: "All Contests", path: "/all-contests" },
         { name: "Leaderboard", path: "/leaderboard" },
     ];
+    
+    const handleLogout = async () => {
+        try {
+          await logOut();
+          Swal.fire({
+            title: "Logged Out!",
+            icon: "success",
+            position: "center",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+          navigate("/");
+          setLoading(false)
+        } catch (error) {
+        Swal.fire({
+            title: "Logged Out!",
+            icon: "success",
+            position: "top-end",
+            text: error,
+            showConfirmButton: false,
+            timer: 1000,
+        });
+      }
+    };
 
     return (
         <div className='flex justify-between items-center py-2'>
@@ -59,16 +86,52 @@ const Header = () => {
                   </svg>
                    </label>
                 <div>
+                    
+                        {/* // <Link to={"/dashboard"} className="btn rounded-2xl text-secondary">
+                        //     <div className='hidden lg:flex items-center gap-0.5'>
+                        //         <MdDashboard></MdDashboard>{ loading ? "Loading" : "Dashboard" } 
+                        //     </div>
+                        //     <div className='lg:hidden flex text-xl'>
+                        //         <MdDashboard></MdDashboard>
+                        //     </div>
+                        // </Link >  */}
+                       
                     {
-                        user ? 
-                        <Link to={"/dashboard"} className="btn rounded-2xl text-secondary">
-                            <FaSquare></FaSquare>{ loading ? "Loading" : "Dashboard" } 
-                        </Link > 
-                        : 
-                        <Link to={"/login"} className="btn rounded-2xl text-secondary">
-                            <IoLogIn></IoLogIn>{ loading ? "Loading" : "Login" } 
+                        user ?  <div className="dropdown dropdown-end font-serif">
+                        {
+                            !loading && user && <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-9 rounded-full">
+                                  <img
+                                    alt={user?.displayName}
+                                    src={user?.photoURL} />
+                                </div>
+                        </div>
+                        }
+                        <ul
+                          tabIndex="-1"
+                          className="menu text-xl menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                          <li>
+                            <p className="justify-between lg:text-[12px]">
+                              {user?.displayName}
+                              {/* <span className="badge">New</span> */}
+                            </p>
+                          </li>
+                          <li><Link to={'/dashboard'} className='lg:text-[12px]'><MdDashboard></MdDashboard> Dashboard</Link></li>
+                          <li onClick={handleLogout}><p className='lg:text-[12px]'><IoLogOutOutline></IoLogOutOutline>LogOut</p></li>
+                        </ul>
+                    </div>
+                    : <Link to={"/login"} className="btn rounded-2xl text-secondary">
+                            <div className='flex text-xl'>
+                            {
+                               !user && loading && <span className='loading loading-dots loading-xs'></span>
+                            }   
+                            {
+                                !user && !loading && <IoLogIn></IoLogIn> 
+                            }
+                            </div>
                         </Link >
-                    }
+                    }   
+
                 </div>   
             </section>
         </div>

@@ -12,9 +12,7 @@ import useUser from '../../hooks/useUser';
 import Loader from '../../utils/Loader/Loader';
 import { FaWpforms } from "react-icons/fa6";
 import { IoLogOutOutline } from "react-icons/io5";
-
-
-
+import { FaRegSquarePlus } from "react-icons/fa6";
 
 const adminLinks = <>
 
@@ -72,6 +70,66 @@ const adminLinks = <>
                   >
                     <PiUsersFourLight />
                     <span className="is-drawer-close:hidden">Manage Users</span>
+                  </NavLink>
+                </li>
+
+</>
+const creatorLinks = <>
+
+              <li>
+                  <NavLink
+                    to="/dashboard/my-contests"
+                    className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right
+                       transition-all duration-200
+                       ${
+                         isActive
+                           ? "bg-secondary text-base-200 font-semibold"
+                           : "hover:bg-base-300"
+                       }`
+                    }
+                    data-tip="My Contests"
+                  >
+                    <CiBoxes />
+                    <span className="is-drawer-close:hidden">My Contests</span>
+                  </NavLink>
+                </li>
+
+              <li>
+                  <NavLink
+                    to="/dashboard/create-contest"
+                    className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right
+                       transition-all duration-200
+                       ${
+                         isActive
+                           ? "bg-secondary text-base-200 font-semibold"
+                           : "hover:bg-base-300"
+                       }`
+                    }
+                    data-tip="Create Contest"
+                  >
+                    <FaRegSquarePlus />
+                    <span className="is-drawer-close:hidden">Create Contests</span>
+                  </NavLink>
+                </li>
+
+              <li>
+                  <NavLink
+                    to="/dashboard/submissions"
+                    className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right
+                       transition-all duration-200
+                       ${
+                         isActive
+                           ? "bg-secondary text-base-200 font-semibold"
+                           : "hover:bg-base-300"
+                       }`
+                    }
+                    data-tip="Submissions"
+                  >
+                    <FaWpforms />
+                    <span className="is-drawer-close:hidden">Submissions</span>
                   </NavLink>
                 </li>
 
@@ -190,6 +248,10 @@ const Dashboard = () => {
 
                 {
                   userData.role === 'admin' && adminLinks
+                }
+
+                {
+                  userData.role === 'creator' && creatorLinks
                 }
                   
                 <li>

@@ -21,7 +21,6 @@ const Auth = () => {
           <Outlet />
         </div>
       </section>
-
     </div>
   );
 };

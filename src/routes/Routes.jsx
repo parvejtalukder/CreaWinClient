@@ -8,6 +8,9 @@ import Register from "../pages/Auth/Register/Register";
 import Dashboard from "../layouts/Dashboard/Dashboard";
 import MyProfile from "../dashboard/MyProfile/MyProfile";
 import PrivateRoute from "./PrivateRoute";
+import NotFound from "../pages/NotFound/NotFound";
+import CreatorRoute from "./CreatorRoute";
+import CreateContest from "../dashboard/CreatorPage/CreateContest/CreateContest";
 
 export const router = createBrowserRouter([
   {
@@ -44,13 +47,25 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
+        // global
         {
             index: true,
         },
         {
             path: "profile",
             element: <MyProfile></MyProfile>
-        }
+        },
+        // admin only
+        // creator only
+        {
+            path: "create-contest",
+            element: <CreatorRoute><CreateContest></CreateContest></CreatorRoute>
+        },
+        // user only
     ]
   },
+  {
+    path: "*",
+    element: <NotFound></NotFound>
+  }
 ]);

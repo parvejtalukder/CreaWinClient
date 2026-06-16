@@ -1,14 +1,16 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import SocialGoWith from '../SocialGoWith/SocialGoWith';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 // import useAxios from '../../../hooks/useAxios';
 import useAuth from '../../../hooks/useAuth';
 import Swal from 'sweetalert2';
 
 const Login = () => {
 
-    const naviget = useNavigate();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
     const { signInUser, loading } = useAuth();
     const { register, formState: { errors } , handleSubmit } = useForm();
 
@@ -16,7 +18,6 @@ const Login = () => {
         signInUser(data.email, data.password)
         .then(res => {
             console.log(res);
-            naviget("/");
             Swal.fire({
                 title: "Logged In!",
                 icon: "success",
@@ -24,6 +25,7 @@ const Login = () => {
                 showConfirmButton: false,
                 timer: 2000
             })
+            navigate(from, { replace: true });
         })
         .catch(err => {
             Swal.fire({
@@ -69,7 +71,7 @@ const Login = () => {
                 </div>
             </form>
             <SocialGoWith></SocialGoWith>
-            <p className='text-center'>New to the <span className='font-bold text-secondary'>CreaWin</span>? <Link to={"/register"} className='text-blue-500'>Create an account!</Link></p>    
+            <p className='text-center'>New to the <span className='font-bold text-secondary'>CreaWin</span>? <Link to={"/register"} state={location?.state} className='text-blue-500'>Create an account!</Link></p>    
         </div>
     );
 };

@@ -11,6 +11,8 @@ import { PiUsersFourLight } from "react-icons/pi";
 import useUser from '../../hooks/useUser';
 import Loader from '../../utils/Loader/Loader';
 import { FaWpforms } from "react-icons/fa6";
+import { IoLogOutOutline } from "react-icons/io5";
+
 
 
 
@@ -24,7 +26,7 @@ const adminLinks = <>
                        transition-all duration-200
                        ${
                          isActive
-                           ? "bg-secondary text-secondary-content font-semibold"
+                           ? "bg-secondary text-base-200 font-semibold"
                            : "hover:bg-base-300"
                        }`
                     }
@@ -43,7 +45,7 @@ const adminLinks = <>
                        transition-all duration-200
                        ${
                          isActive
-                           ? "bg-secondary text-secondary-content font-semibold"
+                           ? "bg-secondary text-base-200 font-semibold"
                            : "hover:bg-base-300"
                        }`
                     }
@@ -62,7 +64,7 @@ const adminLinks = <>
                        transition-all duration-200
                        ${
                          isActive
-                           ? "bg-secondary text-secondary-content font-semibold"
+                           ? "bg-secondary text-base-200 font-semibold"
                            : "hover:bg-base-300"
                        }`
                     }
@@ -198,7 +200,7 @@ const Dashboard = () => {
                        transition-all duration-200
                        ${
                          isActive
-                           ? "bg-secondary text-secondary-content font-semibold"
+                           ? "bg-secondary text-base-200 font-semibold"
                            : "hover:bg-base-300"
                        }`
                     }
@@ -217,11 +219,11 @@ const Dashboard = () => {
                     className={
                       `is-drawer-close:tooltip is-drawer-close:tooltip-right
                        transition-all duration-200
-                       bg-secondary text-secondary-content font-semibold`
+                       bg-secondary text-base-200 font-semibold`
                     }
                     data-tip="Log Out"
                   >
-                    <CgProfile />
+                    <IoLogOutOutline />
                     <span className="is-drawer-close:hidden">Log Out</span>
                   </div>
                 </li>

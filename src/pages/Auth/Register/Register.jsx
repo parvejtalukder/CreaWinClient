@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import SocialGoWith from '../SocialGoWith/SocialGoWith';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -11,8 +11,11 @@ const Register = () => {
 
     const axiosPost = useAxios();
     const navigate = useNavigate();
+    const location = useLocation();
     const { loading, registerUser, updateUser } = useAuth();
     const { register, formState: { errors }, handleSubmit } = useForm();
+
+    const from = location.state?.from?.pathname || '/';
 
     const handleRegister = (data) => {
         
@@ -49,7 +52,6 @@ const Register = () => {
                     axiosPost.post("/add-user", userObject)
                     .then(res_db => {
                         if (res_db.data.acknowledged) {
-                            navigate("/");
                             Swal.fire({
                                 title: "Registration Successful!",
                                 position: "top-end",
@@ -59,6 +61,7 @@ const Register = () => {
                                 timer: 2000
                             })
                         }
+                        navigate(from, { replace: true });
                     })
                     .catch(user_db_err => {
                         Swal.fire({
@@ -148,7 +151,7 @@ const Register = () => {
                 </div>
             </form>
             <SocialGoWith></SocialGoWith> 
-            <p className='text-center'>Already have an account? <Link to={"/login"} className='text-blue-500'>Login</Link></p>
+            <p className='text-center'>Already have an account? <Link to={"/login"} state={location?.state} className='text-blue-500'>Login</Link></p>
         </div>
     );
 };

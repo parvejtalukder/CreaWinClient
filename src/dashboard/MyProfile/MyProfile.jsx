@@ -37,7 +37,7 @@ const MyProfile = () => {
             <section className="flex flex-col lg:flex-row gap-6">
                 <div className="w-full lg:w-3/5 bg-base-200 rounded-3xl p-5 shadow hover:shadow-md transition">
                     <div className="flex flex-col sm:flex-row gap-4 items-start">
-                        <img src={userData?.photo || Logo} alt="profile" />
+                        <img src={userData?.photo || Logo} alt="profile" className='w-40 rounded-3xl' />
                         <div className="flex flex-col gap-3 w-full">
                             <h2 className="text-xl font-bold">
                                 {userData?.name || "User"}

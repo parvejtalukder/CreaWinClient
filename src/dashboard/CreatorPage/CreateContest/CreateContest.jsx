@@ -1,13 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import useAuth from '../../../hooks/useAuth'
+import axios from "axios";
 
 const CreateContest = () => {
-  const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Contest Data:", data);
-    reset();
+  const [liveTitle, setLiveTitle] = useState("New Contest Title");
+  const { user } = useAuth();
+  const { register, handleSubmit, reset } = useForm();
+  // console.log(user);
+
+  
+  const onSubmit = async (data) => {
+
+    const fileOfPhoto = data.image[0];
+
+    const formData = new FormData();
+    formData.append("image", fileOfPhoto);
+    const imageUpload = `https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.VITE_IMAGEBB_API}`;
+
+    axios.post(imageUpload, formData)
+    .then(image_res => {
+      console.log(image_res);
+
+      const imageUrl = image_res.data.data.display_url;
+
+      const ContestObj = {
+            title: data.name,
+            image: imageUrl,
+            description: data.description,
+            taskInstruction: data.task,
+            contestType: data.type,
+            registrationFee: Number(data.price),
+            prizeMoney: Number(data.prizeMoney),
+            deadline: new Date(data.deadline),
+            participantsCount: 0,
+            totalSubmissions: 0,
+            status: "pending",
+            creator: {
+              uid: user.uid,
+              name: user.displayName,
+              email: user.email,
+              photo: user.photoURL,
+            },
+            winner: null,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        };
+
+       console.log(ContestObj);
+
+    })
+  
+    // await axiosSecure.post("/contests", contestData);
   };
+
 
   return (
     <div className="min-h-screen bg-base-100 px-4 py-10 flex justify-center">
@@ -37,7 +84,7 @@ const CreateContest = () => {
                     Contest Name
                   </label>
                   <input
-                    {...register("name", { required: true })}
+                    {...register("name", { required: true, onChange: (e) => setLiveTitle(e.target.value) })}
                     className="mt-2 w-full rounded-xl bg-base-100 border border-base-300 px-4 py-3 text-base-content focus:outline-none focus:border-secondary transition"
                     placeholder="e.g. Cyberpunk Design Challenge"
                   />
@@ -148,7 +195,7 @@ const CreateContest = () => {
 
               <div className="p-5 space-y-2">
                 <h3 className="text-xl font-semibold text-base-content">
-                  New Contest Title
+                  {liveTitle}
                 </h3>
                 <p className="text-sm text-base-content/60">
                   Live preview will update as you type...

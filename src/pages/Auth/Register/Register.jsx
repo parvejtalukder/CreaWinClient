@@ -12,10 +12,14 @@ const Register = () => {
     const axiosPost = useAxios();
     const navigate = useNavigate();
     const location = useLocation();
-    const { loading, registerUser, updateUser } = useAuth();
+    const { loading, registerUser, updateUser, user } = useAuth();
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const from = location.state?.from?.pathname || '/';
+
+    if (loading && user) {
+        return <loading></loading>
+    } 
 
     const handleRegister = (data) => {
         
@@ -50,9 +54,9 @@ const Register = () => {
                     }
 
                     axiosPost.post("/add-user", userObject)
-                    .then(res_db => {
+                    .then( async (res_db) => {
                         if (res_db.data.acknowledged) {
-                            Swal.fire({
+                            await Swal.fire({
                                 title: "Registration Successful!",
                                 position: "top-end",
                                 icon: "success",
@@ -60,11 +64,11 @@ const Register = () => {
                                 showConfirmButton: false,
                                 timer: 2000
                             })
+                            navigate(from, { replace: true });
                         }
-                        navigate(from, { replace: true });
                     })
-                    .catch(user_db_err => {
-                        Swal.fire({
+                    .catch( async (user_db_err) => {
+                        await Swal.fire({
                             title: "Error!",
                             position: "top-end",
                             icon: "warning",
@@ -73,7 +77,6 @@ const Register = () => {
                             timer: 2000
                         })
                     })
-
                 })
                 .catch(err => {
                     console(err);
@@ -85,9 +88,9 @@ const Register = () => {
             } )
 
         })
-        .catch(reg_err => {
-            console.log(reg_err);
-            Swal.fire({
+        .catch( async (reg_err) => {
+            // console.log(reg_err);
+            await Swal.fire({
                 title: "Registration Failed!",
                 position: "top-end",
                 icon: "warning",
